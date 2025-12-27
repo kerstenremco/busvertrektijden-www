@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-burning-orange-50: #fff4ed;
+  --color-burning-orange-100: #ffe7d4;
+  --color-burning-orange-200: #ffcaa8;
+  --color-burning-orange-300: #ffa571;
+  --color-burning-orange-400: #ff793f;
+  --color-burning-orange-500: #fe4f11;
+  --color-burning-orange-600: #ef3507;
+  --color-burning-orange-700: #c62308;
+  --color-burning-orange-800: #9d1e0f;
+  --color-burning-orange-900: #7e1c10;
+  --color-burning-orange-950: #440a06;
+}
