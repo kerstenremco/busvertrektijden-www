@@ -7,8 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://kerstenremco.github.io/",
-  base: "/busvertrektijden-www",
+  site: "https://www.busvertrektijden.nl",
   integrations: [react()],
 
   vite: {
