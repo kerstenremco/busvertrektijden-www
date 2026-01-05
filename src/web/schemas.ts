@@ -16,6 +16,14 @@ export const StopTimeSchema = z.object({
     calculatedArrivalTime: z.string(),
     minutesUntill: z.number(),
   }),
+  alerts: z
+    .array(
+      z.object({
+        header: z.string(),
+        description: z.string(),
+      })
+    )
+    .optional(),
 });
 
 export type StopTime = z.infer<typeof StopTimeSchema>;

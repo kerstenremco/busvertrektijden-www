@@ -12,7 +12,7 @@ export default function Stop({ stopTime }: StopProps) {
   const calculatedArrivalTime = stopTime.tripUpdate.calculatedArrivalTime.replace("24:", "00:");
 
   return (
-    <div className="flex h-12 gap-3">
+    <div className="flex gap-3">
       <div className="w-12 flex justify-center items-center bg-burning-orange-400">
         <span>{stopTime.stopTime.routeShortName}</span>
       </div>
@@ -22,6 +22,14 @@ export default function Stop({ stopTime }: StopProps) {
         {delay && <span className="font-bold text-red-800 ml-2">{calculatedArrivalTime}</span>}
         {cancelled && <span className="font-bold text-red-800 ml-2">Geannuleerd</span>}
         <p className="line-clamp-1">{stopTime.stopTime.routeLongName}</p>
+        <div>
+          {stopTime.alerts?.map((alert, index) => (
+            <div key={index}>
+              <span className="text-sm text-red-800">⚠️ {alert.header}</span>
+              {alert.header.trim() != alert.description.trim() && <p className="text-sm text-red-800">{alert.description}</p>}
+            </div>
+          ))}
+        </div>
       </div>
       {normal && <div className="flex items-center text-green-800">{stopTime.tripUpdate.minutesUntill} min</div>}
       {delay && <div className="flex items-center text-red-800">{stopTime.tripUpdate.minutesUntill} min</div>}
