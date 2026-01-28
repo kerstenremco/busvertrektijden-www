@@ -21,6 +21,7 @@ export default function Stop({ stopTime }: StopProps) {
         {delay || (cancelled && <span className="line-through">{arrivalTime}</span>)}
         {delay && <span className="font-bold text-red-800 ml-2">{calculatedArrivalTime}</span>}
         {cancelled && <span className="font-bold text-red-800 ml-2">Geannuleerd</span>}
+        <span className="ml-2">{stopTime.stopTime.stopHeadsign}</span>
         <p className="line-clamp-1">{stopTime.stopTime.routeLongName}</p>
         <div>
           {stopTime.alerts?.map((alert, index) => (
