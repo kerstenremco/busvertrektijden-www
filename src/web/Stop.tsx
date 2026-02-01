@@ -13,10 +13,10 @@ export default function Stop({ stopTime }: StopProps) {
 
   return (
     <div className="flex gap-3">
-      <div className="w-12 flex justify-center items-center bg-burning-orange-400">
+      <div className="w-12 flex justify-center items-center bg-yellow-600 text-yellow-50 font-bold">
         <span>{stopTime.stopTime.routeShortName}</span>
       </div>
-      <div className="w-96">
+      <div className="flex-1">
         {normal && <span className="font-bold">{arrivalTime}</span>}
         {delay || (cancelled && <span className="line-through">{arrivalTime}</span>)}
         {delay && <span className="font-bold text-red-800 ml-2">{calculatedArrivalTime}</span>}
@@ -32,9 +32,9 @@ export default function Stop({ stopTime }: StopProps) {
           ))}
         </div>
       </div>
-      {normal && <div className="flex items-center text-green-800">{stopTime.tripUpdate.minutesUntill} min</div>}
-      {delay && <div className="flex items-center text-red-800">{stopTime.tripUpdate.minutesUntill} min</div>}
-      {cancelled && <div className="flex items-center text-red-800 line-through">{stopTime.tripUpdate.minutesUntill} min</div>}
+      {normal && <div className="flex items-center text-green-800 font-medium">{stopTime.tripUpdate.minutesUntill} min</div>}
+      {delay && <div className="flex items-center text-red-800 font-medium">{stopTime.tripUpdate.minutesUntill} min</div>}
+      {cancelled && <div className="flex items-center text-red-800 font-medium line-through">{stopTime.tripUpdate.minutesUntill} min</div>}
     </div>
   );
 }

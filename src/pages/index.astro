@@ -5,28 +5,31 @@ import "../styles/global.css";
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Bus vertrektijden</title>
+    <title>busvertrektijden.nl</title>
   </head>
-  <body>
-    <div class="text-center p-8">
-      <h1 class="text-4xl text-burning-orange-800 mt-28">Bus vertrektijden</h1>
-      <p class="mt-3 text-lg text-burning-orange-900">HomeAssistant integratie voor bus vertrektijden in Nederland</p>
-      <div class="my-12">
-        <a
-          href="https://github.com/kerstenremco/busvertrektijden-ha/wiki/Installatie-HomeAssistant"
-          target="_blank"
-          class="inline-block bg-burning-orange-400 px-8 py-2 rounded mr-4 text-burning-orange-50">Ga naar documentatie</a
-        >
-        <a href="/web" target="_blank" class="inline-block text-burning-orange-900 font-bold">Probeer online</a>
+  <body class="bg-slate-100">
+    <div class="flex items-center px-16 py-26">
+      <div class="w-1/3">
+        <h1 class="text-5xl text-blue-950">busvertrektijden.nl</h1>
+        <p class="mt-2 text-lg text-slate-600">HomeAssistant integratie voor bus vertrektijden in Nederland</p>
+        <div class="mt-8">
+          <a
+            href="https://github.com/kerstenremco/busvertrektijden-ha/wiki/Installatie-HomeAssistant"
+            target="_blank"
+            class="block max-w-72 bg-blue-950 py-2 px-4 rounded text-blue-50">HomeAssistant handleiding</a
+          >
+          <a href="/web" target="_blank" class="mt-2 block max-w-72 border-blue-950 border-2 py-2 px-4 rounded text-blue-950">Webversie</a>
+        </div>
       </div>
-      <img
-        src="/hero.png"
-        alt="Home Assistant Integratiescherm"
-        class="w-full lg:w-3/4 mx-auto rounded-xl shadow-lg border-burning-orange-400 border-4 lg:border-8"
-      />
+
+      <div class="flex-1">
+        <img src="/hero.png" alt="Home Assistant Integratiescherm" class="w-3/4 ml-auto" />
+      </div>
     </div>
   </body>
 </html>

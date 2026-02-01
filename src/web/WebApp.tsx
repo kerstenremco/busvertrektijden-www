@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Main from "./Main";
-import Search from "./Search";
 import { StopTimeSchema, type StopTime } from "./schemas";
+import Header from "./Header";
+import SettingsModal from "./SettingsModal";
 
 const fetchUrl = async (stop: string): Promise<string> => {
   const response = await fetch(`https://api.busvertrektijden.nl/stops?q=${stop}`);
@@ -31,6 +32,7 @@ export default function Webapp() {
   const [tick, setTick] = useState(0);
   const [stop, setStop] = useState("");
   const [stopTimes, setStopTimes] = useState<StopTime[]>([]);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Functions
   const fetchData = async () => {
@@ -71,10 +73,17 @@ export default function Webapp() {
     return () => clearInterval(interval);
   }, []);
 
+  // Functions
+  const handleSetStop = (newStop: string) => {
+    setStop(newStop);
+    setShowSettings(false);
+  };
+
   return (
-    <div className="h-screen p-4 flex gap-4 flex-col lg:flex-row">
-      <Search selectedStop={stop} setStop={setStop} />
+    <div className="h-screen">
+      <Header stopName={stop} setShowSettings={setShowSettings} />
       <Main stopTimes={stopTimes} />
+      {showSettings && <SettingsModal close={() => setShowSettings(false)} setStop={handleSetStop} />}
     </div>
   );
 }
