@@ -4,7 +4,7 @@ export const StopTimeSchema = z.object({
   stopTime: z.object({
     arrivalTime: z.string(),
     stopId: z.string(),
-    stopHeadsign: z.string(),
+    stopHeadSign: z.string(),
     routeLongName: z.string(),
     routeShortName: z.string(),
     tripId: z.string(),
@@ -21,7 +21,7 @@ export const StopTimeSchema = z.object({
       z.object({
         header: z.string(),
         description: z.string(),
-      })
+      }),
     )
     .optional(),
 });
