@@ -11,11 +11,11 @@ export default function SettingsModal(props: SearchProps) {
 
   // Functions
   const performSearch = () => {
-    fetch(`https://api.busvertrektijden.nl/stops?q=${query}`)
+    fetch(`https://apiv2.busvertrektijden.nl/stops?search=${query}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data["results"]) {
-          const names = data["results"].map((item: any) => item["name"]);
+        if (data["result"]) {
+          const names = data["result"].map((stop: any) => stop["stop_name"]);
           setItems(names);
         }
       });

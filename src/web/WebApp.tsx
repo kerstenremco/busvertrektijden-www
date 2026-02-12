@@ -4,23 +4,14 @@ import { StopTimeSchema, type StopTime } from "./schemas";
 import Header from "./Header";
 import SettingsModal from "./SettingsModal";
 
-const fetchUrl = async (stop: string): Promise<string> => {
-  const response = await fetch(`https://api.busvertrektijden.nl/stops?q=${stop}`);
-  const data = await response.json();
-  return data["results"][0]["url"];
-};
-
 const fetchStopTimes = async (stop: string): Promise<StopTime[] | undefined> => {
   try {
-    // Get url
-    const url = await fetchUrl(stop);
-
     // Fetch stop times
-    const response = await fetch(`https://api.busvertrektijden.nl${url}`);
+    const response = await fetch(`https://apiv2.busvertrektijden.nl/stop/${encodeURIComponent(stop).toLowerCase()}`);
     const data = await response.json();
 
     // Try to parse
-    const stopTimes: StopTime[] = data["results"].map((st: any) => StopTimeSchema.parse(st));
+    const stopTimes: StopTime[] = data["result"]["stop_times"].map((st: any) => StopTimeSchema.parse(st));
     return stopTimes;
   } catch (error) {
     console.error("Error fetching stop times:", error);
