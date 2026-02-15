@@ -5,7 +5,7 @@ interface StopProps {
 }
 
 export default function Stop({ stopTime }: StopProps) {
-  const delay = stopTime.realtime.delay > 0 && stopTime.realtime.cancelled == false;
+  const delay = stopTime.realtime.delay > 59 && stopTime.realtime.cancelled == false;
   const cancelled = stopTime.realtime.cancelled;
   const normal = !delay && !cancelled;
   const minutes = Math.round(stopTime.computed.seconds / 60);
