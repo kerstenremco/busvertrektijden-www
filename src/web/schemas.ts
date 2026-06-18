@@ -42,3 +42,10 @@ export const StopTimeSchema = z.object({
 });
 
 export type StopTime = z.infer<typeof StopTimeSchema>;
+
+export const StopAlertSchema = z.object({
+  header: z.string(),
+  description: z.optional(z.string().nullable()),
+});
+
+export type StopAlert = z.infer<typeof StopAlertSchema>;

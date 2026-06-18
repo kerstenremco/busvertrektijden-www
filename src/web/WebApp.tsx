@@ -1,40 +1,55 @@
 import { useEffect, useState } from "react";
 import Main from "./Main";
-import { StopTimeSchema, type StopTime } from "./schemas";
+import { StopTimeSchema, StopAlertSchema, type StopTime, type StopAlert } from "./schemas";
 import Header from "./Header";
 import SettingsModal from "./SettingsModal";
 
-const fetchStopTimes = async (stop: string): Promise<StopTime[] | undefined> => {
-  try {
-    // Fetch stop times
-    const response = await fetch(`https://apiv2.busvertrektijden.nl/stop/${encodeURIComponent(stop).toLowerCase()}`);
-    const data = await response.json();
+const fetchApi = async (stop: string): Promise<any> => {
+  const response = await fetch(`https://apiv2.busvertrektijden.nl/stop/${encodeURIComponent(stop).toLowerCase()}`);
+  const data = await response.json();
+  return data;
+};
 
-    // Try to parse
-    const stopTimes: StopTime[] = data["result"]["stop_times"].map((st: any) => StopTimeSchema.parse(st));
-    return stopTimes;
-  } catch (error) {
-    console.error("Error fetching stop times:", error);
-    return undefined;
-  }
+const parseAlerts = (data: any): StopAlert[] => {
+  // Try to parse
+  const stopAlerts: StopAlert[] = data["result"]["stop_alerts"].map((sa: any) => StopAlertSchema.parse(sa));
+  return stopAlerts;
+};
+
+const parseStopTimes = (data: any): StopTime[] => {
+  // Try to parse
+  const stopTimes: StopTime[] = data["result"]["stop_times"].map((st: any) => StopTimeSchema.parse(st));
+  return stopTimes;
 };
 
 export default function Webapp() {
   const [tick, setTick] = useState(0);
   const [stop, setStop] = useState("");
+  const [stopAlerts, setStopAlerts] = useState<StopAlert[]>([]);
   const [stopTimes, setStopTimes] = useState<StopTime[]>([]);
   const [showSettings, setShowSettings] = useState(false);
 
   // Functions
   const fetchData = async () => {
     if (stop.length == 0) {
-      return setStopTimes([]);
+      setStopAlerts([]);
+      setStopTimes([]);
+      return;
     }
-    const stops = await fetchStopTimes(stop);
-    if (!stops) {
-      return setStopTimes([]);
+
+    try {
+      const data = await fetchApi(stop);
+
+      const stopAlerts = parseAlerts(data);
+      setStopAlerts(stopAlerts);
+
+      const stopTimes = parseStopTimes(data);
+      setStopTimes(stopTimes);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setStopAlerts([]);
+      setStopTimes([]);
     }
-    setStopTimes(stops);
   };
 
   // Effects
@@ -73,7 +88,7 @@ export default function Webapp() {
   return (
     <div className="h-screen">
       <Header stopName={stop} setShowSettings={setShowSettings} />
-      <Main stopTimes={stopTimes} />
+      <Main stopTimes={stopTimes} stopAlerts={stopAlerts} />
       {showSettings && <SettingsModal close={() => setShowSettings(false)} setStop={handleSetStop} />}
     </div>
   );
