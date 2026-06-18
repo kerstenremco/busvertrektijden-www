@@ -23,7 +23,9 @@ export const StopTimeSchema = z.object({
   computed: z.object({
     time: z.string(),
     seconds: z.number(),
+    bus_number: z.string(),
     name: z.string(),
+    trip_name: z.optional(z.string().nullable()),
   }),
   alert: z.optional(
     z.array(

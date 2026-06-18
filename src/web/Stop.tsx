@@ -11,17 +11,23 @@ export default function Stop({ stopTime }: StopProps) {
   const minutes = Math.round(stopTime.computed.seconds / 60);
 
   return (
-    <div className="flex gap-3">
-      <div className="w-12 flex justify-center items-center bg-yellow-600 text-yellow-50 font-bold">
-        <span>{stopTime.route_short_name}</span>
+    <div className="flex gap-3 items-center">
+      <div className="min-w-12 h-12 flex justify-center items-center bg-yellow-600 text-yellow-50 font-bold">
+        <span>{stopTime.computed.bus_number}</span>
       </div>
       <div className="flex-1">
-        {normal && <span className="font-bold">{stopTime.computed.time}</span>}
-        {(delay || cancelled) && <span className="line-through">{stopTime.departure_time.substring(0, 5)}</span>}
-        {delay && <span className="font-bold text-red-800 ml-2">{stopTime.computed.time}</span>}
-        {cancelled && <span className="font-bold text-red-800 ml-2">Geannuleerd</span>}
-        <span className="ml-2">{stopTime.computed.name}</span>
-        <p className="line-clamp-1">{stopTime.route_long_name}</p>
+        <div className="flex flex-col md:flex-row md:gap-2">
+          <div>
+            {normal && <span className="font-bold">{stopTime.computed.time}</span>}
+            {(delay || cancelled) && <span className="line-through">{stopTime.departure_time.substring(0, 5)}</span>}
+            {delay && <span className="font-bold text-red-800 ml-0.5">{stopTime.computed.time}</span>}
+            {cancelled && <span className="font-bold text-red-800 ml-0.5">Geannuleerd</span>}
+          </div>
+          <div>
+            <span>{stopTime.computed.name}</span>
+            <span className="italic ml-0.5">{stopTime.computed.trip_name && `(${stopTime.computed.trip_name})`}</span>
+          </div>
+        </div>
         <div>
           {stopTime.alert?.map((alert, index) => (
             <div key={index}>
